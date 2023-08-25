@@ -7,7 +7,7 @@ public class OceanGenerator : MonoBehaviour
 {
     public Mesh mesh;
     public MeshFilter filter;
-    public MeshRenderer renderer;
+    public MeshRenderer _renderer;
 
     float time = 0;
     void Start()

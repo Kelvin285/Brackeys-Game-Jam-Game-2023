@@ -13,6 +13,9 @@ public class DiverController : MonoBehaviour
     private float movement = 0;
     private float momentum = 0;
     private bool pressed = false;
+
+    public LineRenderer boulder_line;
+    public GameObject boulder;
     private void FixedUpdate()
     {
         var rigidbody = GetComponent<Rigidbody2D>();
@@ -30,7 +33,6 @@ public class DiverController : MonoBehaviour
             {
                 rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, rigidbody.velocity.normalized * 8, 0.75f);
             }
-            rigidbody.AddForce(Vector2.up * 9.81f * 0.5f);
 
             if (Input.GetKey(Settings.DOWN) || Input.GetKey(Settings.UP) || Input.GetKey(Settings.RIGHT) || Input.GetKey(Settings.LEFT))
             {
@@ -61,7 +63,7 @@ public class DiverController : MonoBehaviour
             if (momentum > 0)
             {
                 movement += Time.fixedDeltaTime * 16.0f * momentum;
-                rigidbody.AddForce(look.normalized * 4.0f * momentum, ForceMode2D.Impulse);
+                rigidbody.AddForce(look.normalized * 8.0f * momentum, ForceMode2D.Impulse);
             }
         }
         look = Vector2.Lerp(look, dir, 1.0f / 8.0f);
@@ -81,6 +83,8 @@ public class DiverController : MonoBehaviour
         }
         transform.rotation = Quaternion.Euler(0, 0, rot);
         _camera.transform.position = Vector3.Lerp(_camera.transform.position, transform.position - new Vector3(0, 0, 10), 1.0f / 4.0f);
-        
+
+        boulder_line.SetPosition(0, boulder.transform.position);
+        boulder_line.SetPosition(1, transform.position);
     }
 }

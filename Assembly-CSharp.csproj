@@ -58,6 +58,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.7f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\boulder.cs" />
     <Compile Include="Assets\Settings.cs" />
     <Compile Include="Assets\scripts\OceanGenerator.cs" />
     <Compile Include="Assets\DiverController.cs" />
