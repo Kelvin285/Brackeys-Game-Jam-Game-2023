@@ -12,7 +12,6 @@ public class DiverController : MonoBehaviour
     private Vector2 dir = new Vector2(0, 1);
     private float movement = 0;
     private float momentum = 0;
-    private bool pressed = false;
 
     public LineRenderer boulder_line;
     public GameObject boulder;
@@ -38,10 +37,6 @@ public class DiverController : MonoBehaviour
             {
                 dir *= 0;
                 momentum = 2.0f;
-            }
-            else
-            {
-                pressed = false;
             }
 
             if (Input.GetKey(Settings.DOWN))

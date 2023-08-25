@@ -19,7 +19,9 @@ public class boulder : MonoBehaviour
 
         } else
         {
-            rigidbody.AddForce(Vector2.up * 9.81f * 4.0f);
+            float depth = Mathf.Abs(transform.position.y);
+            float multiplier = Mathf.Exp(depth / 4096.0f);
+            rigidbody.AddForce(Vector2.up * 9.81f * 4.0f * multiplier);
         }
 
     }
