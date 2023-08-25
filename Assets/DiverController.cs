@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class DiverController : MonoBehaviour
 {
-    public GameObject camera;
-    public GameObject left_leg;
-    public GameObject right_leg;
+    public GameObject _camera;
+    public GameObject propeller;
 
     private Vector2 look = new Vector2(0, 1);
     private Vector2 dir = new Vector2(0, 1);
@@ -35,12 +34,8 @@ public class DiverController : MonoBehaviour
 
             if (Input.GetKey(Settings.DOWN) || Input.GetKey(Settings.UP) || Input.GetKey(Settings.RIGHT) || Input.GetKey(Settings.LEFT))
             {
-                if (!pressed)
-                {
-                    pressed = true;
-                    dir *= 0;
-                    momentum = 2.0f;
-                }
+                dir *= 0;
+                momentum = 2.0f;
             }
             else
             {
@@ -67,12 +62,15 @@ public class DiverController : MonoBehaviour
             {
                 movement += Time.fixedDeltaTime * 16.0f * momentum;
                 rigidbody.AddForce(look.normalized * 4.0f * momentum, ForceMode2D.Impulse);
-                momentum -= Time.fixedDeltaTime;
             }
         }
         look = Vector2.Lerp(look, dir, 1.0f / 8.0f);
 
-
+        if (momentum > 0)
+        {
+            momentum -= Time.fixedDeltaTime;
+            propeller.transform.localRotation = Quaternion.Euler(0, 0, propeller.transform.localRotation.eulerAngles.z + momentum * 15.0f);
+        }
         
 
 
@@ -82,8 +80,7 @@ public class DiverController : MonoBehaviour
             rot = Mathf.Rad2Deg * Mathf.Atan2(look.y, look.x) - 90;
         }
         transform.rotation = Quaternion.Euler(0, 0, rot);
-        camera.transform.position = Vector3.Lerp(camera.transform.position, transform.position - new Vector3(0, 0, 10), 1.0f / 4.0f);
-        left_leg.transform.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(movement) * 45.0f);
-        right_leg.transform.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(-movement) * 45.0f);
+        _camera.transform.position = Vector3.Lerp(_camera.transform.position, transform.position - new Vector3(0, 0, 10), 1.0f / 4.0f);
+        
     }
 }
